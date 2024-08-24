@@ -35,12 +35,10 @@ const AddInstanceForm = ({ onInstanceAdded }) => {
 
             try {
                 const response = await axios.post('http://localhost:8081/api/instances', instanceData);
-                console.log('Instance added:', response.data);
-                // Clear form fields
                 setYear('');
                 setSemester('');
                 setSelectedCourse('');
-                // Notify parent component
+                
                 onInstanceAdded();
             } catch (error) {
                 console.error('Error adding instance:', error);
@@ -95,7 +93,7 @@ const AddInstanceForm = ({ onInstanceAdded }) => {
                 className="form-control"
             />
 
-            <button onClick={handleSubmit} className="btn btn-primary">
+            <button onClick={handleSubmit} className="btn btn-primary mt-3">
                 Add Instance
             </button>
         </div>

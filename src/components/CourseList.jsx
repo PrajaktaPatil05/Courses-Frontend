@@ -8,7 +8,7 @@ const CourseList = ({ onDeleteCourse, onViewCourse }) => {
     const fetchCourses = async () => {
         try {
             const response = await axios.get('http://localhost:8081/api/courses');
-            setCourses(response.data); // Adjust based on your API response
+            setCourses(response.data); 
         } catch (error) {
             console.error('Error fetching courses:', error);
         }
@@ -20,23 +20,21 @@ const CourseList = ({ onDeleteCourse, onViewCourse }) => {
 
     // Handle delete course
     const handleDeleteCourse = async (courseId) => {
-        try {
-            console.log(`Attempting to delete course with ID: ${courseId}`);
-            const response = await axios.delete(`http://localhost:8081/api/courses/${courseId}`);
-            console.log('Response status:', response.status);
-    
-            if (response.status === 200) {
-                console.log('Course deleted successfully:', courseId);
-                setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId));
-                onDeleteCourse(courseId); // Notify parent component
-            } else {
-                console.error('Failed to delete course. Status:', response.status);
-            }
-        } catch (error) {
-            console.error('Error deleting course:', error);
+    try {
+        
+        const response = await axios.delete(`http://localhost:8081/api/courses/${courseId}`);
+        if (response.status === 200) {
+            
+            setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId));
+            onDeleteCourse(courseId); 
+        } else {
+            console.error('Failed to delete course. Status:', response.status);
         }
-    };
-    
+    } catch (error) {
+        console.error('Error deleting course:', error);
+    }
+};
+
 
     // Handle view course
     const handleViewCourse = async (courseId) => {
@@ -45,7 +43,7 @@ const CourseList = ({ onDeleteCourse, onViewCourse }) => {
             if (response.status === 200) {
                 const courseDetails = response.data;
                 alert(`Course Title: ${courseDetails.title}\nCode: ${courseDetails.code}\nDescription: ${courseDetails.description}`);
-                onViewCourse(courseId); // Notify parent component
+                onViewCourse(courseId); 
             } else {
                 console.error('Failed to fetch course details', response.status);
             }
